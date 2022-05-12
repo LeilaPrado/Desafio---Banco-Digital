@@ -1,56 +1,51 @@
 public abstract class Conta implements IConta {
-
     private static final int agenciaPadrao = 1;
     private static int sequencial = 1;
-
-    protected int agencia;
+    protected int agencia = 1;
     protected int conta;
-    protected double saldo =0;
+    protected double saldo = 0.0D;
     private Cliente cliente;
+    protected String tipoConta = "";
 
     public Conta(Cliente cliente) {
-        agencia = agenciaPadrao;
-        conta = sequencial++;
+        this.conta = sequencial++;
         this.cliente = cliente;
     }
 
-
     public int getAgencia() {
-        return agencia;
+        return this.agencia;
     }
-
 
     public int getConta() {
-        return conta;
+        return this.conta;
     }
-
 
     public double getSaldo() {
-        return saldo;
+        return this.saldo;
     }
 
-    @Override
+    public String getTipoConta() {
+        return this.tipoConta;
+    }
+
     public void sacar(double valor) {
-        this.saldo-= valor;
+        this.saldo -= valor;
     }
 
-    @Override
     public void depositar(double valor) {
-        this.saldo+= valor;
+        this.saldo += valor;
     }
 
-    @Override
     public void transferir(double valor, Conta contaDestino) {
         this.sacar(valor);
         contaDestino.depositar(valor);
     }
 
     protected void imprimirAtributos() {
-        System.out.printf("Titular: %s", cliente.getNome());
-        System.out.printf("\nAgencia: %d", agencia);
-        System.out.printf("\nConta: %d", conta);
-        System.out.printf("\nSaldo: %.2f", saldo);
+        System.out.printf("Titular: %s", this.cliente.getNome());
+        System.out.printf("CPF: ", this.cliente.getCpf());
+        System.out.printf("\nAgencia: %d", this.agencia);
+        System.out.printf("\nConta: %d", this.conta);
+        System.out.printf("\nSaldo: %.2f", this.saldo);
     }
 }
-
-
